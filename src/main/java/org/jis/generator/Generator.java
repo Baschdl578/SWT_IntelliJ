@@ -95,8 +95,14 @@ public class Generator {
    * @param selected
    *          Vector, the Images for the ZIP-File
    */
-  public void createZip(File zipFileName, Vector<File> selected)
+  public void createZip(File zipFileName, Vector<File> selected) throws IllegalArgumentException
   {
+      //Check Argument1:
+      if (zipFileName == null) throw new IllegalArgumentException();
+
+
+
+
     try
     {
       byte[] buffer = new byte[ 4096];
@@ -299,10 +305,10 @@ public class Generator {
    * scale the Image and write it to a specified Directory or File
    * </p>
    * 
-   * @param file
+   * @param imageFile
    *          String, filename for the outputimage
-   * @param image
-   *          Image, the input image
+//   * @param image
+//   *          Image, the input image
    * @param iout
    *          File, the directory or file for the scaled image
    * @param print
@@ -313,7 +319,7 @@ public class Generator {
    *          int, heigth of the scaled image
    * @return File
    * @throws IOException
-   * @throws ImageFormatException
+//   * @throws ImageFormatException
    */
   public File generateImage(File imageFile, File iout, boolean print, int width, int height, String praefix) throws IOException//, ImageFormatException
   {

@@ -31,8 +31,19 @@ public class GeneratorTest {
                                                                   // (there might be a directory with the same name)
     }
 
+    @Test (expected=IllegalArgumentException.class)
+    public void checkFirstArgumentNull() {
+        generator.createZip(null, new Vector<File>());
+    }
+
+
+
     /**
      * Deletes testfile
+     *
+     * I am aware that it probably isn't necessary to check if the file exists first, but since that points
+     * to an error in this test class, I wanted to make the distinction between 'deletion failed' and 'no file there'.
+     *
      */
     @After public void tearDown() {
         File testFile = new File("TestFileCreateZip.zip");
