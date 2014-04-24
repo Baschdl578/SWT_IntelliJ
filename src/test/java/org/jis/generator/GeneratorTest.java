@@ -39,7 +39,15 @@ public class GeneratorTest {
         generator.createZip(null, new Vector<File>());
     }
 
-
+    /**
+     * Checks if createZip() still works if the filelist is empty
+     */
+    @Test public void checkSecondArgumentNull() {
+        File testFile = new File("TestFileCreateZip.zip");
+        generator.createZip(testFile, null);  //create File
+        assertTrue(testFile.exists() && !testFile.isDirectory()); //check if File exists and if it isn't a directory
+                                                                // (there might be a directory with the same name)
+    }
 
     /**
      * Deletes testfile
