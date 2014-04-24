@@ -4,11 +4,25 @@
 
 	<groupId>swt1.ub1.a1</groupId>
 	<version>0.0.1-SNAPSHOT</version>
-	<artifactId>0000000</artifactId>
+	<artifactId>9999996</artifactId>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<parent>
+		<groupId>edu.kit.ipd.swt1.ss2014</groupId>
+		<artifactId>uebungsparent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<repositories>
+		<repository>
+			<id>swt1ss2014</id>
+			<name>SWT1-SS2014</name>
+			<url>http://i41vm-automodel.ipd.kit.edu/nexus/content/repositories/swt1ss2014/</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -21,6 +35,23 @@
 					<configLocation>${basedir}/src/main/resources/checkstyle_swt1.xml</configLocation>
 				</configuration>
 			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>org.jis.Main</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -39,6 +70,7 @@
 				</executions>
 			</plugin>
 
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -56,17 +88,29 @@
 	</build>
 
 	<scm>
-		<connection>scm:git:file:///</connection>
-		<url>scm:git:file:///</url>
+		<connection>git:github.com/Baschdl578/SWT_IntelliJ</connection>
+		<url>file://C:/Users/Baschdl/Desktop/Uni/SWT</url>
 	</scm>
 
 	<reporting>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changelog-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <version>2.2</version>
+                <reportSets>
+                    <reportSet>
+                        <id> file-report </id>
+                        <configuration>
+                            <type> range </type>
+                            <range> 30</range>
+                        </configuration>
+                        <reports>
+                            <report>file-activity</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
 		</plugins>
 	</reporting>
 
