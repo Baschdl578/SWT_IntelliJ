@@ -31,7 +31,10 @@ public class GeneratorTest {
                                                                   // (there might be a directory with the same name)
     }
 
-    @Test (expected=IllegalArgumentException.class)
+    /**
+     * Checks if createZip() corrrectly throws the IllegalArgumentException if the first argument is null
+     */
+    @Test (expected = IllegalArgumentException.class)
     public void checkFirstArgumentNull() {
         generator.createZip(null, new Vector<File>());
     }
