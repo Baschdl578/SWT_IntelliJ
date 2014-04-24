@@ -100,7 +100,11 @@ public class Generator {
       //Check Argument1:
       if (zipFileName == null) throw new IllegalArgumentException();
 
-
+      //Check Argument2:
+      if (selected == null){
+          this.createZip(zipFileName, new Vector<File>());
+          return;
+      }
 
 
     try
