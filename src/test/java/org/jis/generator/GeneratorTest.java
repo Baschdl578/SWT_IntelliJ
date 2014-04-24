@@ -70,5 +70,14 @@ public class GeneratorTest {
         }
     }
 
+/*
+Assignment 2 h): If you run the original createZip(null, new Vector<File>) (as described in the assignment,
+it should fail with a NullPointerException at the FileOutputStream, and it does, I checked.
+As a result, no file is created at all, so there is no file to delete. My tearDown() method actually checks if there is
+a file to delete first and prints a different error message from the one it prints if the deletion just fails
+(e.g. if the file is write-protected).
+But why should this be Windows-specific? To my knowledge, there is no OS that can delete nonexistent files.
+But *please* correct me if I'm wrong, because I really want to know if that is possible :D
+ */
 
 }
