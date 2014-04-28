@@ -53,7 +53,8 @@ public class GeneratorTest {
      * Deletes testfile
      *
      * I am aware that it probably isn't necessary to check if the file exists first, but since that points
-     * to an error in this test class, I wanted to make the distinction between 'deletion failed' and 'no file there'.
+     * to an error in this test class (at least for checkSecondArgumentNull() and checkZipCreation()),
+     * I wanted to make the distinction between 'deletion failed' and 'no file there'.
      *
      */
     @After public void tearDown() {
@@ -65,8 +66,7 @@ public class GeneratorTest {
                 System.out.println("Could not delete testfile (TestFileCreateZip.zip).");
             }
         } else {
-            System.out.println("The testfile (TestFileCreateZip.zip) does not exist. "
-                    + "This is serious, something went wrong.");
+            System.out.println("The testfile (TestFileCreateZip.zip) does not exist.");
         }
     }
 
