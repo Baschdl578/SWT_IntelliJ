@@ -69,11 +69,4 @@ public class GeneratorTest {
             System.out.println("The testfile (TestFileCreateZip.zip) does not exist.");
         }
     }
-
-/*
-Assignment 2 h): If you run the original createZip(null, new Vector<File>) (as described in the assignment), it creates
-a completely empty file. Windows can't correctly handle this file, so it is unable to delete it.
-Other (e.g. Unix-based) operating systems can do that.
- */
-
 }
