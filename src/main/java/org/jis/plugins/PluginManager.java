@@ -27,19 +27,9 @@ public class PluginManager {
     public static List<JmjrstPlugin> getPlugins() {
         List<JmjrstPlugin> plugins = new LinkedList<JmjrstPlugin>();
         Iterator iter = getInstance().loader.iterator();
-        System.out.println(((JmjrstPlugin) iter.next()).getName());
         if (iter.hasNext()) {
             JmjrstPlugin plugin = (JmjrstPlugin) iter.next();
             plugins.add(plugin);
-
-
-
-
-            System.out.println(plugin.getName());
-
-
-
-
         }
         while (iter.hasNext()) {
             JmjrstPlugin plugin = (JmjrstPlugin) iter.next();

@@ -16,6 +16,7 @@
 package org.jis.view;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -122,6 +123,10 @@ public class Menu extends JMenuBar {
     option.add(update_check);
 
     List plugList = PluginManager.getInstance().getPlugins();
+
+    List<JMenuItem> pluginStartList = new LinkedList<JMenuItem>();
+    List<JMenuItem> pluginConfigList = new LinkedList<JMenuItem>();
+
     if (plugList != null) {
         for (int i = 0; i < (plugList.size() - 1); i++) {
             plugin = new JMenu(((JmjrstPlugin) plugList.get(i)).getName());
@@ -131,24 +136,44 @@ public class Menu extends JMenuBar {
             plugins.add(plugin);
             plugins.addSeparator();
 
-            JMenuItem start = new JMenuItem(m.mes.getString("Menu.19"));
+            JMenuItem pluginStart = new JMenuItem(m.mes.getString("Menu.19"));
             url = ClassLoader.getSystemResource("icons/media-playback-start.png");
-            start.setIcon(new ImageIcon(url));
+            pluginStart.setIcon(new ImageIcon(url));
+            plugin.add(pluginStart);
 
-            start.addActionListener(al);
+            pluginStartList.add(pluginStart);
 
             if (((JmjrstPlugin) plugList.get(i)).isConfigurable()) {
-                JMenuItem config = new JMenuItem(m.mes.getString("Menu.20"));
+                JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
                 url = ClassLoader.getSystemResource("icons/preferences-system.png");
-                config.setIcon(new ImageIcon(url));
+                pluginConfig.setIcon(new ImageIcon(url));
+                plugin.add(pluginConfig);
 
-                config.addActionListener(al);
+                pluginConfigList.add(pluginConfig);
             }
         }
-        plugin = new JMenuItem(((JmjrstPlugin) plugList.get(plugList.size() - 1)).getName());
+        plugin = new JMenu(((JmjrstPlugin) plugList.get(plugList.size() - 1)).getName());
         url = ClassLoader.getSystemResource("icons/plugin.png");
         plugin.setIcon(new ImageIcon(url));
+
         plugins.add(plugin);
+
+        JMenuItem pluginStart = new JMenuItem(m.mes.getString("Menu.19"));
+        url = ClassLoader.getSystemResource("icons/media-playback-start.png");
+        pluginStart.setIcon(new ImageIcon(url));
+        plugin.add(pluginStart);
+
+        pluginStartList.add(pluginStart);
+
+        if (((JmjrstPlugin) plugList.get(0)).isConfigurable()) {
+            JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
+            url = ClassLoader.getSystemResource("icons/preferences-system.png");
+            pluginConfig.setIcon(new ImageIcon(url));
+            plugin.add(pluginConfig);
+
+            pluginConfigList.add(pluginConfig);
+        }
+
     } else {
         plugin = new JMenuItem(m.mes.getString("Menu.18"));
         url = ClassLoader.getSystemResource("icons/plugin.png");
