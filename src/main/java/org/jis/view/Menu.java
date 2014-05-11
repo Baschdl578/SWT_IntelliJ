@@ -16,6 +16,7 @@
 package org.jis.view;
 
 import java.net.URL;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -25,6 +26,8 @@ import javax.swing.UIManager;
 
 import org.jis.Main;
 import org.jis.listner.MenuListner;
+import org.jis.plugins.JmjrstPlugin;
+import org.jis.plugins.PluginManager;
 
 /**
  * @author <a href="http://www.jgeppert.com">Johannes Geppert</a>
@@ -49,6 +52,7 @@ public class Menu extends JMenuBar {
   public JMenuItem          look_motif;
   public JMenuItem          look_gtk;
   public JMenuItem          update_check;
+  public JMenuItem          plugin = null;
 
   /**
    * @param m
@@ -59,7 +63,10 @@ public class Menu extends JMenuBar {
     JMenu datei = new JMenu(m.mes.getString("Menu.0"));
     JMenu option = new JMenu(m.mes.getString("Menu.1"));
     JMenu optionen_look = new JMenu(m.mes.getString("Menu.2"));
+    JMenu plugins = new JMenu(m.mes.getString("Menu.17"));
     JMenu about = new JMenu(m.mes.getString("Menu.3"));
+
+    MenuListner al = new MenuListner(m, this);
 
     gener = new JMenuItem(m.mes.getString("Menu.4"));
     URL url = ClassLoader.getSystemResource("icons/media-playback-start.png");
@@ -92,6 +99,7 @@ public class Menu extends JMenuBar {
     url = ClassLoader.getSystemResource("icons/system-software-update.png");
     update_check.setIcon(new ImageIcon(url));
 
+
     look_windows = new JMenuItem(m.mes.getString("Menu.8"));
     look_windows_classic = new JMenuItem(m.mes.getString("Menu.9"));
     look_nimbus = new JMenuItem(m.mes.getString("Menu.16"));
@@ -112,12 +120,52 @@ public class Menu extends JMenuBar {
     option.add(set_quality);
     option.addSeparator();
     option.add(update_check);
+
+    List plugList = PluginManager.getInstance().getPlugins();
+    if (plugList != null) {
+        for (int i = 0; i < (plugList.size() - 1); i++) {
+            plugin = new JMenu(((JmjrstPlugin) plugList.get(i)).getName());
+            url = ClassLoader.getSystemResource("icons/plugin.png");
+            plugin.setIcon(new ImageIcon(url));
+
+            plugins.add(plugin);
+            plugins.addSeparator();
+
+            JMenuItem start = new JMenuItem(m.mes.getString("Menu.19"));
+            url = ClassLoader.getSystemResource("icons/media-playback-start.png");
+            start.setIcon(new ImageIcon(url));
+
+            start.addActionListener(al);
+
+            if (((JmjrstPlugin) plugList.get(i)).isConfigurable()) {
+                JMenuItem config = new JMenuItem(m.mes.getString("Menu.20"));
+                url = ClassLoader.getSystemResource("icons/preferences-system.png");
+                config.setIcon(new ImageIcon(url));
+
+                config.addActionListener(al);
+            }
+        }
+        plugin = new JMenuItem(((JmjrstPlugin) plugList.get(plugList.size() - 1)).getName());
+        url = ClassLoader.getSystemResource("icons/plugin.png");
+        plugin.setIcon(new ImageIcon(url));
+        plugins.add(plugin);
+    } else {
+        plugin = new JMenuItem(m.mes.getString("Menu.18"));
+        url = ClassLoader.getSystemResource("icons/plugin.png");
+        plugin.setIcon(new ImageIcon(url));
+
+        plugins.add(plugin);
+    }
+
+
+
+
     about.add(info);
     this.add(datei);
     this.add(option);
+    this.add(plugins);
     this.add(about);
 
-    MenuListner al = new MenuListner(m, this);
     exit.addActionListener(al);
     gener.addActionListener(al);
     zippen.addActionListener(al);
