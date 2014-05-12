@@ -28,7 +28,6 @@ import javax.swing.JOptionPane;
 
 import org.jis.Main;
 import org.jis.options.Options;
-import org.jis.plugins.JmjrstPlugin;
 import org.jis.view.Menu;
 import org.jis.view.dialog.AboutBox;
 import org.jis.view.dialog.GallerieDialog;
