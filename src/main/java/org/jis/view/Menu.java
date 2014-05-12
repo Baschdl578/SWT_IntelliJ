@@ -16,7 +16,6 @@
 package org.jis.view;
 
 import java.net.URL;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,9 +54,9 @@ public class Menu extends JMenuBar {
   public JMenuItem          look_gtk;
   public JMenuItem          update_check;
   public JMenuItem          plugin = null;
-  public List               pluginStartList = new LinkedList();
-  public List               pluginConfigList = new LinkedList();
-  public LinkedList<JmjrstPlugin> plugList = (LinkedList) PluginManager.getInstance().getPlugins();
+  public List<JmjrstPlugin> pluginStartList = new LinkedList<JmjrstPlugin>();
+  public List<JmjrstPlugin> pluginConfigList = new LinkedList<JmjrstPlugin>();
+  public List<JmjrstPlugin> plugList = PluginManager.getInstance().getPlugins();
 
   /**
    * @param m
@@ -125,6 +124,10 @@ public class Menu extends JMenuBar {
     option.addSeparator();
     option.add(update_check);
 
+
+
+    LinkedList<JMenuItem> buttonStartList = new LinkedList<JMenuItem>();
+    LinkedList<JMenuItem> buttonConfigList = new LinkedList<JMenuItem>();
     if (plugList != null) {
         for (int i = 0; i < (plugList.size() - 1); i++) {
             plugin = new JMenu(((JmjrstPlugin) plugList.get(i)).getName());
@@ -139,8 +142,8 @@ public class Menu extends JMenuBar {
             pluginStart.setIcon(new ImageIcon(url));
             plugin.add(pluginStart);
 
-            pluginStartList.add(pluginStart);
-            pluginStartList.add(i);
+            buttonStartList.add(pluginStart);
+            pluginStartList.add(plugin);
 
             if (((JmjrstPlugin) plugList.get(i)).isConfigurable()) {
                 JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
@@ -148,8 +151,8 @@ public class Menu extends JMenuBar {
                 pluginConfig.setIcon(new ImageIcon(url));
                 plugin.add(pluginConfig);
 
-                pluginConfigList.add(pluginConfig);
-                pluginConfigList.add(i);
+                buttonConfigList.add(pluginConfig);
+                pluginConfigList.add(plugin);
             }
         }
         plugin = new JMenu(((JmjrstPlugin) plugList.get(plugList.size() - 1)).getName());
@@ -163,8 +166,8 @@ public class Menu extends JMenuBar {
         pluginStart.setIcon(new ImageIcon(url));
         plugin.add(pluginStart);
 
-        pluginStartList.add(pluginStart);
-        pluginStartList.add(plugList.size() - 1);
+        buttonStartList.add(pluginStart);
+        pluginStartList.add(plugin);
 
         if (((JmjrstPlugin) plugList.get(0)).isConfigurable()) {
             JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
@@ -172,8 +175,8 @@ public class Menu extends JMenuBar {
             pluginConfig.setIcon(new ImageIcon(url));
             plugin.add(pluginConfig);
 
-            pluginConfigList.add(pluginConfig);
-            pluginConfigList.add(plugList.size() - 1);
+            buttonConfigList.add(pluginConfig);
+            pluginConfigList.add(plugin);
         }
 
     } else {
@@ -209,13 +212,13 @@ public class Menu extends JMenuBar {
 
 
 
-    for (int i = 0; i < pluginStartList.size(); i = i + 2) {
-        ((JMenuItem) pluginStartList.get(i)).addActionListener(al);
+    for (int i = 0; i < buttonStartList.size(); i = i + 2) {
+        ((JMenuItem) buttonStartList.get(i)).addActionListener(al);
     }
 
 
-    for (int i = 0; i < pluginConfigList.size(); i = i + 2) {
-        ((JMenuItem) pluginConfigList.get(i)).addActionListener(al);
+    for (int i = 0; i < buttonConfigList.size(); i = i + 2) {
+        ((JMenuItem) buttonConfigList.get(i)).addActionListener(al);
     }
 
 
