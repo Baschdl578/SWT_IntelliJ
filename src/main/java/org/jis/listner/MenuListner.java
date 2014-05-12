@@ -28,6 +28,8 @@ import javax.swing.JOptionPane;
 
 import org.jis.Main;
 import org.jis.options.Options;
+import org.jis.plugins.JmjrstPlugin;
+import org.jis.plugins.PluginManager;
 import org.jis.view.Menu;
 import org.jis.view.dialog.AboutBox;
 import org.jis.view.dialog.GallerieDialog;
@@ -81,6 +83,13 @@ public class MenuListner implements ActionListener {
     else if (e.getSource() == menu.gallerie || e.getSource() == m.toolBar.gallerie) new GallerieDialog(m);
     else if (e.getSource() == menu.exit) System.exit(0);
     else if (e.getSource() == menu.set_quality || e.getSource() == m.toolBar.preferences) m.openOptions();
+    else if (menu.pluginStartList.contains(e.getSource())) {
+        ((JmjrstPlugin) menu.plugList.get(((int) menu.pluginStartList.get
+                (menu.pluginStartList.indexOf(e.getSource()))) + 1)).run();
+    } else if (menu.pluginStartList.contains(e.getSource())) {
+        ((JmjrstPlugin) menu.plugList.get(((int) menu.pluginConfigList.get
+                (menu.pluginConfigList.indexOf(e.getSource()))) + 1)).configure();
+    }
     else if (e.getSource() == menu.look_windows)
     {
       m.setLookFeel(winClassName);

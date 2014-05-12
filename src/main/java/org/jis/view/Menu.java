@@ -55,8 +55,9 @@ public class Menu extends JMenuBar {
   public JMenuItem          look_gtk;
   public JMenuItem          update_check;
   public JMenuItem          plugin = null;
-  public List<JMenuItem>    pluginStartList = new LinkedList<JMenuItem>();
-  public List<JMenuItem>    pluginConfigList = new LinkedList<JMenuItem>();
+  public List               pluginStartList = new LinkedList();
+  public List               pluginConfigList = new LinkedList();
+  public LinkedList<JmjrstPlugin> plugList = (LinkedList) PluginManager.getInstance().getPlugins();
 
   /**
    * @param m
@@ -124,8 +125,6 @@ public class Menu extends JMenuBar {
     option.addSeparator();
     option.add(update_check);
 
-    List plugList = PluginManager.getInstance().getPlugins();
-
     if (plugList != null) {
         for (int i = 0; i < (plugList.size() - 1); i++) {
             plugin = new JMenu(((JmjrstPlugin) plugList.get(i)).getName());
@@ -141,6 +140,7 @@ public class Menu extends JMenuBar {
             plugin.add(pluginStart);
 
             pluginStartList.add(pluginStart);
+            pluginStartList.add(i);
 
             if (((JmjrstPlugin) plugList.get(i)).isConfigurable()) {
                 JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
@@ -149,6 +149,7 @@ public class Menu extends JMenuBar {
                 plugin.add(pluginConfig);
 
                 pluginConfigList.add(pluginConfig);
+                pluginConfigList.add(i);
             }
         }
         plugin = new JMenu(((JmjrstPlugin) plugList.get(plugList.size() - 1)).getName());
@@ -163,6 +164,7 @@ public class Menu extends JMenuBar {
         plugin.add(pluginStart);
 
         pluginStartList.add(pluginStart);
+        pluginStartList.add(plugList.size() - 1);
 
         if (((JmjrstPlugin) plugList.get(0)).isConfigurable()) {
             JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
@@ -171,6 +173,7 @@ public class Menu extends JMenuBar {
             plugin.add(pluginConfig);
 
             pluginConfigList.add(pluginConfig);
+            pluginConfigList.add(plugList.size() - 1);
         }
 
     } else {
@@ -204,17 +207,16 @@ public class Menu extends JMenuBar {
     look_gtk.addActionListener(al);
     update_check.addActionListener(al);
 
-      Iterator<JMenuItem> startIter = pluginStartList.iterator();
-      while (startIter.hasNext()) {
-          ((JMenuItem) startIter.next()).addActionListener(al);
-      }
-
-      Iterator<JMenuItem> configIter = pluginConfigList.iterator();
-      while (configIter.hasNext()) {
-          ((JMenuItem) configIter.next()).addActionListener(al);
-      }
 
 
+    for (int i = 0; i < pluginStartList.size(); i = i + 2) {
+        ((JMenuItem) pluginStartList.get(i)).addActionListener(al);
+    }
+
+
+    for (int i = 0; i < pluginConfigList.size(); i = i + 2) {
+        ((JMenuItem) pluginConfigList.get(i)).addActionListener(al);
+    }
 
 
 

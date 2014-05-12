@@ -34,9 +34,10 @@ public class PluginManager {
         while (iter.hasNext()) {
             JmjrstPlugin plugin = (JmjrstPlugin) iter.next();
             for (int i = 0; i < plugins.size(); i++) {
-                if (plugin.compareTo(plugins.get(i)) <= 0) {
+                boolean cont = true;
+                if (plugin.compareTo(plugins.get(i)) <= 0 && cont) {
                     plugins.add(i, plugin);
-                    continue;
+                    cont = false;
                 }
             }
         }
