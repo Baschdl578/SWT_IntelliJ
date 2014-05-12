@@ -40,23 +40,25 @@ import org.jis.plugins.PluginManager;
 public class Menu extends JMenuBar {
   private static final long serialVersionUID = 1232107393895691717L;
 
-  public JMenuItem          gener;
-  public JMenuItem          zippen;
-  public JMenuItem          gallerie;
-  public JMenuItem          exit;
-  public JMenuItem          set_quality;
-  public JMenuItem          info;
-  public JMenuItem          look_windows;
-  public JMenuItem          look_windows_classic;
-  public JMenuItem          look_nimbus;
-  public JMenuItem          look_metal;
-  public JMenuItem          look_motif;
-  public JMenuItem          look_gtk;
-  public JMenuItem          update_check;
-  public JMenuItem          plugin = null;
-  public List<JmjrstPlugin> pluginStartList = new LinkedList<JmjrstPlugin>();
-  public List<JmjrstPlugin> pluginConfigList = new LinkedList<JmjrstPlugin>();
-  public List<JmjrstPlugin> plugList = PluginManager.getInstance().getPlugins();
+  public JMenuItem              gener;
+  public JMenuItem              zippen;
+  public JMenuItem              gallerie;
+  public JMenuItem              exit;
+  public JMenuItem              set_quality;
+  public JMenuItem              info;
+  public JMenuItem              look_windows;
+  public JMenuItem              look_windows_classic;
+  public JMenuItem              look_nimbus;
+  public JMenuItem              look_metal;
+  public JMenuItem              look_motif;
+  public JMenuItem              look_gtk;
+  public JMenuItem              update_check;
+  public JMenuItem              pluginMenu;
+  public List<JmjrstPlugin>     pluginStartList      = new LinkedList<JmjrstPlugin>();
+  public List<JmjrstPlugin>     pluginConfigList     = new LinkedList<JmjrstPlugin>();
+  public List<JmjrstPlugin>     plugList             = PluginManager.getInstance().getPlugins();
+  public LinkedList<JMenuItem>  buttonStartList      = new LinkedList<JMenuItem>();
+  public LinkedList<JMenuItem>  buttonConfigList     = new LinkedList<JMenuItem>();
 
   /**
    * @param m
@@ -126,65 +128,66 @@ public class Menu extends JMenuBar {
 
 
 
-    LinkedList<JMenuItem> buttonStartList = new LinkedList<JMenuItem>();
-    LinkedList<JMenuItem> buttonConfigList = new LinkedList<JMenuItem>();
+
     if (plugList != null) {
         for (int i = 0; i < (plugList.size() - 1); i++) {
-            plugin = new JMenu(((JmjrstPlugin) plugList.get(i)).getName());
+            JmjrstPlugin plugin = (JmjrstPlugin) plugList.get(i);
+            pluginMenu = new JMenu(plugin.getName());
             url = ClassLoader.getSystemResource("icons/plugin.png");
-            plugin.setIcon(new ImageIcon(url));
+            pluginMenu.setIcon(new ImageIcon(url));
 
-            plugins.add(plugin);
+            plugins.add(pluginMenu);
             plugins.addSeparator();
 
             JMenuItem pluginStart = new JMenuItem(m.mes.getString("Menu.19"));
             url = ClassLoader.getSystemResource("icons/media-playback-start.png");
             pluginStart.setIcon(new ImageIcon(url));
-            plugin.add(pluginStart);
+            pluginMenu.add(pluginStart);
 
             buttonStartList.add(pluginStart);
             pluginStartList.add(plugin);
 
-            if (((JmjrstPlugin) plugList.get(i)).isConfigurable()) {
+            if (plugin.isConfigurable()) {
                 JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
                 url = ClassLoader.getSystemResource("icons/preferences-system.png");
                 pluginConfig.setIcon(new ImageIcon(url));
-                plugin.add(pluginConfig);
+                pluginMenu.add(pluginConfig);
 
                 buttonConfigList.add(pluginConfig);
                 pluginConfigList.add(plugin);
             }
         }
-        plugin = new JMenu(((JmjrstPlugin) plugList.get(plugList.size() - 1)).getName());
+        JmjrstPlugin plugin = (JmjrstPlugin) plugList.get(plugList.size() - 1);
+        pluginMenu = new JMenu(plugin.getName());
         url = ClassLoader.getSystemResource("icons/plugin.png");
-        plugin.setIcon(new ImageIcon(url));
+        pluginMenu.setIcon(new ImageIcon(url));
 
-        plugins.add(plugin);
+        plugins.add(pluginMenu);
 
         JMenuItem pluginStart = new JMenuItem(m.mes.getString("Menu.19"));
         url = ClassLoader.getSystemResource("icons/media-playback-start.png");
         pluginStart.setIcon(new ImageIcon(url));
-        plugin.add(pluginStart);
+        pluginMenu.add(pluginStart);
 
         buttonStartList.add(pluginStart);
         pluginStartList.add(plugin);
 
-        if (((JmjrstPlugin) plugList.get(0)).isConfigurable()) {
+        if (plugin.isConfigurable()) {
             JMenuItem pluginConfig = new JMenuItem(m.mes.getString("Menu.20"));
             url = ClassLoader.getSystemResource("icons/preferences-system.png");
             pluginConfig.setIcon(new ImageIcon(url));
-            plugin.add(pluginConfig);
+            pluginMenu.add(pluginConfig);
 
             buttonConfigList.add(pluginConfig);
             pluginConfigList.add(plugin);
         }
 
     } else {
-        plugin = new JMenuItem(m.mes.getString("Menu.18"));
+        pluginMenu = new JMenuItem(m.mes.getString("Menu.18"));
         url = ClassLoader.getSystemResource("icons/plugin.png");
-        plugin.setIcon(new ImageIcon(url));
+        pluginMenu.setIcon(new ImageIcon(url));
 
-        plugins.add(plugin);
+        plugins.add(pluginMenu);
     }
 
 
