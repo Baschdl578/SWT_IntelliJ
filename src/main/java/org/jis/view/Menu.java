@@ -59,6 +59,10 @@ public class Menu extends JMenuBar {
   public List<JmjrstPlugin>     plugList             = PluginManager.getInstance().getPlugins();
   public LinkedList<JMenuItem>  buttonStartList      = new LinkedList<JMenuItem>();
   public LinkedList<JMenuItem>  buttonConfigList     = new LinkedList<JMenuItem>();
+    //The pluginStartList and buttonStartList contain a JMenuItem and the corresponding plugin at the same Index
+    //The same goes for pluginConfigList and buttonConfigList
+    //This way, I can associate a JMenuItem and it's plugin
+
 
   /**
    * @param m
@@ -128,7 +132,14 @@ public class Menu extends JMenuBar {
 
 
 
+    /* Plugin-Sction:
+       The following section of code only handles adding the menus for all the plugins
+       When a plugin is found, it creates a submenu wit the name of the plugin
+       In that submenu is a button to start the plugin and, if the plugin
+       can be configured, a button to do that
 
+       If there are no plugins, it simply shows a JMenuItem that says so
+    */
     if (plugList != null) {
         for (int i = 0; i < (plugList.size() - 1); i++) {
             JmjrstPlugin plugin = (JmjrstPlugin) plugList.get(i);
@@ -214,12 +225,10 @@ public class Menu extends JMenuBar {
     update_check.addActionListener(al);
 
 
-
+    // The following adds all the actionListeners for the Plugins
     for (int i = 0; i < buttonStartList.size(); i = i + 2) {
         ((JMenuItem) buttonStartList.get(i)).addActionListener(al);
     }
-
-
     for (int i = 0; i < buttonConfigList.size(); i = i + 2) {
         ((JMenuItem) buttonConfigList.get(i)).addActionListener(al);
     }

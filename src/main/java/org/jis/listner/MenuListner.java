@@ -81,13 +81,17 @@ public class MenuListner implements ActionListener {
     else if (e.getSource() == menu.gallerie || e.getSource() == m.toolBar.gallerie) new GallerieDialog(m);
     else if (e.getSource() == menu.exit) System.exit(0);
     else if (e.getSource() == menu.set_quality || e.getSource() == m.toolBar.preferences) m.openOptions();
-    else if (menu.buttonStartList.contains(e.getSource())) {
+
+    else if (menu.buttonStartList.contains(e.getSource())) {  //Checks which plugin this is, initializes and starts it
         int pos = menu.buttonStartList.indexOf(e.getSource());
+        menu.pluginStartList.get(pos).init(m);
         menu.pluginStartList.get(pos).run();
-    } else if (menu.buttonStartList.contains(e.getSource())) {
-        int pos = menu.buttonStartList.contains(e.getSource());
-        menu.pluginStartList.get(pos).configure();
+    } else if (menu.buttonConfigList.contains(e.getSource())) {
+        int pos = menu.buttonConfigList.indexOf(e.getSource());
+        menu.pluginConfigList.get(pos).init(m);
+        menu.pluginConfigList.get(pos).configure();
     }
+
     else if (e.getSource() == menu.look_windows)
     {
       m.setLookFeel(winClassName);
