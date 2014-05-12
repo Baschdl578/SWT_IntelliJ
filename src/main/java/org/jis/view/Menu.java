@@ -16,6 +16,7 @@
 package org.jis.view;
 
 import java.net.URL;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,6 +55,8 @@ public class Menu extends JMenuBar {
   public JMenuItem          look_gtk;
   public JMenuItem          update_check;
   public JMenuItem          plugin = null;
+  public List<JMenuItem>    pluginStartList = new LinkedList<JMenuItem>();
+  public List<JMenuItem>    pluginConfigList = new LinkedList<JMenuItem>();
 
   /**
    * @param m
@@ -67,7 +70,6 @@ public class Menu extends JMenuBar {
     JMenu plugins = new JMenu(m.mes.getString("Menu.17"));
     JMenu about = new JMenu(m.mes.getString("Menu.3"));
 
-    MenuListner al = new MenuListner(m, this);
 
     gener = new JMenuItem(m.mes.getString("Menu.4"));
     URL url = ClassLoader.getSystemResource("icons/media-playback-start.png");
@@ -123,9 +125,6 @@ public class Menu extends JMenuBar {
     option.add(update_check);
 
     List plugList = PluginManager.getInstance().getPlugins();
-
-    List<JMenuItem> pluginStartList = new LinkedList<JMenuItem>();
-    List<JMenuItem> pluginConfigList = new LinkedList<JMenuItem>();
 
     if (plugList != null) {
         for (int i = 0; i < (plugList.size() - 1); i++) {
@@ -184,13 +183,13 @@ public class Menu extends JMenuBar {
 
 
 
-
     about.add(info);
     this.add(datei);
     this.add(option);
     this.add(plugins);
     this.add(about);
 
+    MenuListner al = new MenuListner(m, this);
     exit.addActionListener(al);
     gener.addActionListener(al);
     zippen.addActionListener(al);
@@ -204,6 +203,20 @@ public class Menu extends JMenuBar {
     look_motif.addActionListener(al);
     look_gtk.addActionListener(al);
     update_check.addActionListener(al);
+
+      Iterator<JMenuItem> startIter = pluginStartList.iterator();
+      while (startIter.hasNext()) {
+          ((JMenuItem) startIter.next()).addActionListener(al);
+      }
+
+      Iterator<JMenuItem> configIter = pluginConfigList.iterator();
+      while (configIter.hasNext()) {
+          ((JMenuItem) configIter.next()).addActionListener(al);
+      }
+
+
+
+
 
     UIManager.LookAndFeelInfo uii[] = UIManager.getInstalledLookAndFeels();
     for (int i = 0; i < uii.length; i++)
