@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>swt1.ub2.a5</groupId>
+	<groupId>swt1.ub5.a1</groupId>
 	<version>0.0.1-SNAPSHOT</version>
 	<artifactId>9999996</artifactId>
 
@@ -87,11 +87,6 @@
 		</pluginManagement>
 	</build>
 
-	<scm>
-		<connection>git:github.com/Baschdl578/SWT_IntelliJ</connection>
-		<url>file://C:/Users/Baschdl/Desktop/Uni/SWT</url>
-	</scm>
-
 	<reporting>
 		<plugins>
             <plugin>
@@ -116,6 +111,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+            <dependency>
+                <groupId>swt1.ub5.a3</groupId>
+                <artifactId>9999996</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -135,6 +135,11 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+        <dependency>
+            <groupId>swt1.ub5.a3</groupId>
+            <artifactId>9999996</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

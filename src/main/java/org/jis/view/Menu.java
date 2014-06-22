@@ -168,7 +168,10 @@ public class Menu extends JMenuBar {
                 pluginConfigList.add(plugin);
             }
         }
-        JmjrstPlugin plugin = (JmjrstPlugin) plugList.get(plugList.size() - 1);
+        JmjrstPlugin plugin = null;
+        if (plugList.size() != 0) {
+            plugin = (JmjrstPlugin) plugList.get(plugList.size() - 1);
+        }
         pluginMenu = new JMenu(plugin.getName());
         url = ClassLoader.getSystemResource("icons/plugin.png");
         pluginMenu.setIcon(new ImageIcon(url));

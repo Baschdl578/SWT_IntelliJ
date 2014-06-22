@@ -655,7 +655,7 @@ public class Generator {
       try
       {
         // resize single image
-        generateImage(input, output, true, o.getHmax(), o.getVmax(), m.mes.getString("Generator.22"));
+        generateImage(input, output, true, o.getHmax(), o.getVmax(), "t_");
       }
       catch (Exception e)
       {
